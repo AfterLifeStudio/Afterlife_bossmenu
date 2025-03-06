@@ -9,6 +9,18 @@ if Config.framework == 'esx' then
      lastlocation = playerData.coords
     end)
 
+    FirstName = function ()
+        return ESX.PlayerData.firstName
+    end
+
+    LastName = function ()
+        return ESX.PlayerData.lastName
+    end
+
+    GradeLabel = function ()
+        return ESX.PlayerData.job.grade_name
+    end
+
     Updatelastlocation = function ()
         local player = ESX.PlayerData
         lastlocation = player.coords

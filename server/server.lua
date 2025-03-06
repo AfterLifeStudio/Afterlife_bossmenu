@@ -39,16 +39,27 @@ end)
 
 
 lib.callback.register('JobAccounts:Server:Add', function(source,data)
-    local prevammount = MySQL.prepare.await('SELECT ammount FROM jobs_account WHERE job = ?')
+    local prevammount = MySQL.prepare.await('SELECT account FROM jobs_account WHERE job = ?', {data.job})
 
     local amount = data.amount + prevammount
-    local response = MySQL.update.await('UPDATE jobs_account SET ammount = ? WHERE job = ?',{ amount, data.job })
+    local response = MySQL.update.await('UPDATE jobs_account SET account = ? WHERE job = ?',{ amount, data.job })
+
+    return amount
 end)
 
 
 lib.callback.register('JobAccounts:Server:Remove', function(source,data)
-    local prevammount = MySQL.prepare.await('SELECT ammount FROM jobs_account WHERE job = ?')
+    local prevammount = MySQL.prepare.await('SELECT account FROM jobs_account WHERE job = ?', {data.job})
+    local amount = prevammount
+    if prevammount >= data.amount then
+    amount = data.amount - prevammount
+    local response = MySQL.update.await('UPDATE jobs_account SET account = ? WHERE job = ?',{ amount, data.job })
+    end
 
-    local amount = data.amount - prevammount
-    local response = MySQL.update.await('UPDATE jobs_account SET ammount = ? WHERE job = ?',{ amount, data.job })
+    return amount
+end)
+
+lib.callback.register('GetAccountBalance', function(source,data)
+    local ammount = MySQL.prepare.await('SELECT account FROM jobs_account WHERE job = ?', {data})
+    return ammount
 end)

@@ -8,15 +8,40 @@ local IsControlJustReleased = IsControlJustReleased
 
 
 local LocationInteract = function(location)
+
+    local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId), 5, false)
+    local playersid = {}
+
+    for i = 1,#players do
+        playersid[#playersid + 1] = GetPlayerServerId(NetworkGetPlayerIndexFromPed(players[i].ped))
+    end
+
+    local nearbyplayers = lib.callback.await('GetNearbyPlayersInfos', false, playersid)
+
     local data = {
-        label = location.label,
-        description = location.description,
-        jobcount = lib.callback.await('GetJobPlayersCount', false, 'police')
+        job = location.job,
+        playerfirstname = FirstName(),
+        playername = FirstName()..' '..LastName(),
+        playerrank = GradeLabel(),
+        locationlabel = location.label,
+        locationdescription = location.description,
+        jobcount = lib.callback.await('GetJobPlayersCount', false, 'police'),
+        accountmoney = lib.callback.await('GetAccountBalance', false, 'police'),
+        nearbyplayers = {
+            {
+                id = 1,
+                name = 'Osman Saleem'
+            }
+        }
     }
-    Nuimessage('mdt', true)
+
+
+
+
+
+    Nuimessage('mdt', data)
     SetNuiFocus(true, true)
 end
-
 
 
 

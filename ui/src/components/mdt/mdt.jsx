@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { employdata } from "./debugdata";
+import { employdata, dasboarddata } from "./debugdata";
 import Employees from "./employees";
 import Fade from "../../utils/Fade"
 import Dashboard from "./dashboard";
@@ -7,17 +7,26 @@ import { NuiEvent } from "../../hooks/NuiEvent";
 import { nuicallback } from "../../utils/nuicallback";
 
 function MDT() {
-  const [visible, setVisible] = useState(true);
-  const [menu, setMenu] = useState('employees');
+
+
+
+  const [data, setData] = useState(false)
+
+
+  const [menu, setMenu] = useState('dashboard');
 
 
   NuiEvent("mdt", (data) => {
-    setVisible(data);
+    setData(data);
   });
+
+  const updateaccountbalance = (newamount) => {
+    setData({...data, accountmoney: newamount})
+  }
 
 
   return (
-    visible &&
+    data &&
     <div className="mdt-wrapper">
       <div className="mdt-navbar">
         <div className="mdt-navbar-items">
@@ -43,7 +52,7 @@ function MDT() {
 
         <div className="mdt-navbar-items">
           <div onClick={() => {
-            setVisible(false);
+            setData(false);
             nuicallback('exitmdt')
           }} className="navbar-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
@@ -57,7 +66,7 @@ function MDT() {
       <div className="mdt-container">
         {/* {menu == 'employees' ? <Employees /> : <></> } */}
         <Fade in={menu == 'dashboard'}>
-        <Dashboard /> 
+        <Dashboard data={data} updateaccountbalance={updateaccountbalance}/> 
         </Fade>
         <Fade in={menu == 'employees'}>
         <Employees /> 

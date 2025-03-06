@@ -20,6 +20,17 @@ RegisterNUICallback('Fire', function(data, cb)
 end)
 
 
+RegisterNUICallback('deposit:balance', function(data, cb) 
+    local amount = lib.callback.await('JobAccounts:Server:Add', false, {job = data.job,amount = data.amount})
+    cb(amount)
+end)
+
+RegisterNUICallback('withdraw:balance', function(data, cb) 
+    local amount = lib.callback.await('JobAccounts:Server:Remove', false, {job = data.job,amount = data.amount})
+    cb(amount)
+end)
+
+
 
 RegisterNUICallback('exitmdt', function(data, cb)
     SetNuiFocus(false, false)

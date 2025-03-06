@@ -7,6 +7,39 @@ export const gradedata = [
 ]
 
 
+export const dasboarddata  = {
+        job: 'sapd',
+        playerfirstname: 'Osman',
+        playername: 'Osman Saleem',
+        playerrank: 'Seargent',
+        locationlabel: 'Mission Row',
+        locationdescription: 'Police department located nearthe legion square',
+        jobcount: 12,
+        accountmoney: 123214124,
+        nearbyplayers: [
+            {
+                id: 1,
+                name: 'Osman Saleem'
+            },
+            {
+                id: 1,
+                name: 'Osman Saleem'
+            },            {
+                id: 1,
+                name: 'Osman Saleem'
+            },
+            {
+                id: 1,
+                name: 'Osman Saleem'
+            },
+            {
+                id: 1,
+                name: 'Osman Saleem'
+            }
+        ]
+    }
+
+
 export const employdata = [
     {
         name: 'Osman Saleem',

@@ -5,9 +5,9 @@ import Fade from "../../utils/Fade"
 
 
 const Employees = () => {
-  const [gradesdata, setGradesData] = useState(gradedata)
-  const [searcheddata, setSearcheddata] = useState(employdata);
-  const [data, setData] = useState(employdata);
+  const [gradesdata, setGradesData] = useState([])
+  const [searcheddata, setSearcheddata] = useState([]);
+  const [data, setData] = useState([]);
   const [counter, setCounter] = useState(-1);
   const [filtereddata, setFiltereddata] = useState([]);
   const [maxpages, setMaxpages] = useState(0);
@@ -100,7 +100,7 @@ const Employees = () => {
     pagebuttons.push(
       <div
         style={{
-          backgroundColor: page == key ? "rgba(0, 0, 0, 0.25)" : "transparent",
+          backgroundColor: page == key ? "$primary" : "transparent",
         }}
         onClick={() => handlepage(key)}
         className="page-button"
@@ -135,7 +135,7 @@ const Employees = () => {
                 <div
                   style={{
                     backgroundColor:
-                      page == 1 ? "rgba(0, 0, 0, 0.25)" : "transparent",
+                      page == 1 ? "#316BC2" : "transparent",
                   }}
                   onClick={() => handlepage(1)}
                   className="page-button"
@@ -145,7 +145,7 @@ const Employees = () => {
                 <div
                   style={{
                     backgroundColor:
-                      page == 2 ? "rgba(0, 0, 0, 0.25)" : "transparent",
+                      page == 2 ? "#316BC2" : "transparent",
                   }}
                   onClick={() => handlepage(2)}
                   className="page-button"
@@ -155,7 +155,7 @@ const Employees = () => {
                 <div
                   style={{
                     backgroundColor:
-                      page == 3 ? "rgba(0, 0, 0, 0.25)" : "transparent",
+                      page == 3 ? "#316BC2" : "transparent",
                   }}
                   onClick={() => handlepage(3)}
                   className="page-button"
@@ -165,7 +165,7 @@ const Employees = () => {
                 <div
                   style={{
                     backgroundColor:
-                      page == 4 ? "rgba(0, 0, 0, 0.25)" : "transparent",
+                      page == 4 ? "#316BC2" : "transparent",
                   }}
                   onClick={() => handlepage(4)}
                   className="page-button"

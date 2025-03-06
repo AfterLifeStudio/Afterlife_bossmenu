@@ -58,6 +58,18 @@ if Config.framework == 'esx' then
         end
         return true
     end)
+
+
+    lib.callback.register('GetNearbyPlayersInfos', function(source,data)
+        local options = {}
+
+        for i = 1,#data do
+            options[#options + 1] = {
+                id = data[i]
+                name = 
+            }
+        end
+    end)
     
 
 end
