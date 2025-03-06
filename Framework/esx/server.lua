@@ -60,15 +60,30 @@ if Config.framework == 'esx' then
     end)
 
 
+
+    lib.callback.register('Server:HirePlayer', function(source,data)
+        local xPlayer = ESX.GetPlayerFromId(data.id)
+        
+        if xPlayer then
+            xPlayer.setJob(data.job, 0)
+        end
+        return true
+    end)
+
+
     lib.callback.register('GetNearbyPlayersInfos', function(source,data)
         local options = {}
 
         for i = 1,#data do
+            local xPlayer = ESX.GetPlayerFromId(data[i])
+
             options[#options + 1] = {
-                id = data[i]
-                name = 
+                id = data[i],
+                name = xPlayer.getName()
             }
         end
+
+        return options
     end)
     
 

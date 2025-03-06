@@ -19,6 +19,10 @@ RegisterNUICallback('Fire', function(data, cb)
     cb(response)
 end)
 
+RegisterNUICallback('Hire', function(data, cb)
+    local wait = lib.callback.await('Server:HirePlayer', false, data)
+    cb({})
+end)
 
 RegisterNUICallback('deposit:balance', function(data, cb) 
     local amount = lib.callback.await('JobAccounts:Server:Add', false, {job = data.job,amount = data.amount})

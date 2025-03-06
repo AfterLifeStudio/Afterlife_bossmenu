@@ -9,7 +9,7 @@ local IsControlJustReleased = IsControlJustReleased
 
 local LocationInteract = function(location)
 
-    local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId), 5, false)
+    local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId()), 5, true)
     local playersid = {}
 
     for i = 1,#players do
@@ -27,12 +27,7 @@ local LocationInteract = function(location)
         locationdescription = location.description,
         jobcount = lib.callback.await('GetJobPlayersCount', false, 'police'),
         accountmoney = lib.callback.await('GetAccountBalance', false, 'police'),
-        nearbyplayers = {
-            {
-                id = 1,
-                name = 'Osman Saleem'
-            }
-        }
+        nearbyplayers = nearbyplayers
     }
 
 
