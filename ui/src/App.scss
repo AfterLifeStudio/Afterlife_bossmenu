@@ -2,14 +2,14 @@
 
 
 body {
-  // background-color: grey;
+
   user-select: none;
 }
 
 $white: rgba(255, 255, 255, 0.8);
 $blackhighlight: rgba(0, 0, 0, 0.192);
 // $primary: #be2c15;
-$primary: #316BC2;
+$primary: #316bc2c4;
 
 .mdt-wrapper {
   position: absolute;
@@ -18,10 +18,10 @@ $primary: #316BC2;
   transform: translate(-50%, -50%);
   width: 1280px;
   height: 750px;
-  outline: 2px solid white;
-  border: 6px solid black;
+  outline: 2px solid rgb(83, 83, 83);
+  border: 7px solid rgb(5, 5, 5);
 
-  background: #09182C;
+  background: #091627;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,7 +53,7 @@ $primary: #316BC2;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 20px;
 }
 
 .navbar-item {
@@ -80,6 +80,7 @@ $primary: #316BC2;
   background-color: #316BC2;
   cursor: pointer;
 }
+
 
 .mdt-container{
 
@@ -140,7 +141,7 @@ $primary: #316BC2;
   padding: 20px;
   border-radius: 8px;
   height: 490px;
-  background-image:  linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+  background-image: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
 }
 
 .employees-button{
@@ -157,13 +158,39 @@ $primary: #316BC2;
     width: 15px;
     fill: $white
   }
+
+  .fire-hover{
+    display: none;
+    color: $white;
+    margin-bottom: 60px;
+    position: absolute;  
+    font-size: 12px;
+    animation: hovercreate 200ms forwards;
+  }
+  
 }
+
+
+@keyframes hovercreate {
+  0%{
+    opacity: 0;
+    margin-bottom: 0px;
+  }
+  100%{
+    margin-bottom: 60px;
+    opacity: 1;
+  }
+}
+
 
 .disabledbutton{
   opacity: 0.5 !important;
 }
 
 .employeesaction:hover{
+  .fire-hover{
+    display: flex;
+  }
   background-color: $primary;
   cursor: pointer
 }
@@ -243,20 +270,67 @@ $primary: #316BC2;
 
 .grademenu-container{
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 320px;
-  height: 400px;
+  height: 395px;
   border-radius: 15px;
-  background-color: #ad2e1a;
+  padding: 10px 10px 30px 10px;
+  background-image:  linear-gradient(145deg, rgba(23, 51, 92) 0%, rgba(49, 107, 194) 100%);
+
+  .grades-title{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+    justify-content: space-between;
+    padding: 0px 20px;
+    .x{
+      margin: 10px 2px;
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
+      background-color: $primary;
+      transition: 100ms ease;
+      border-radius: 5px;
+    }
+
+    .x:hover{
+      cursor: pointer;
+      opacity: .7;
+    }
+
+    div{
+      margin: 10px 2px;
+      color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+      font-weight: 700
+    }
+  }
+
+  
 }
 
 
 
 .firemenu-container{
   @extend .grademenu-container;
-  height: 250px;
+  height: 200px;
   gap: 40px;
+
+  div{
+    font-size: 60px;
+    font-weight: 700;
+    color: $white;
+  }
 }
 
 .fire-cancel{
@@ -267,13 +341,13 @@ $primary: #316BC2;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 5px
+  border-radius: 5px;
+  font-size: 15px !important
 }
 
 .fire-confirm{
   @extend .fire-cancel;
-  color: rgb(255, 146, 146);
-  background-color: rgba(255, 0, 0, 0.404);
+  background-color: $primary;
 }
 
 .fire-confirm:hover{
@@ -294,17 +368,34 @@ $primary: #316BC2;
 
   .grade-option{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
     height: 40px;
     border-radius: 5px;
     background-color: $blackhighlight;
     color: $white;
+    transition: 100ms ease;
+
+    div{
+      padding: 0px 15px;
+    }
+
+    .grade-rank{
+      margin: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 0px !important;
+      height: 25px !important;
+      border-radius: 5px;
+      background-color: $blackhighlight;
+    }
   }
 
   .grade-option:hover{
     cursor: pointer;
+    background-color: $primary;
   }
 }
 
@@ -352,7 +443,7 @@ $primary: #316BC2;
   border-radius: 100%;
   width: 50px;
   height: 50px;
-  background-color: #347eec7e;
+  background-color: $primary;
   fill: #7db1ffea;
   display: flex;
   justify-content: center;
@@ -442,6 +533,18 @@ $primary: #316BC2;
   opacity: .7
 }
 
+.dashboard-location-bottom{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  svg{
+    width: 20px;
+    fill: $white;
+  }
+}
+
 .dashboard-accounts{
   display: flex;
   align-items: center;
@@ -456,7 +559,7 @@ $primary: #316BC2;
 }
 .dashboard-description{
   font-size: 30px;
-  color: $primary;
+  color: #7db1ffea;
   font-weight: 750;
   width: 420px;
 
@@ -520,11 +623,25 @@ $primary: #316BC2;
     outline: none;
     background-color: $blackhighlight;
     font-weight: 600;
+
+    border: 2px solid rgba(0, 0, 0, 0);
+    transition: 200ms ease
+  };
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input:focus{
+    border: 2px solid $primary;
+ 
   }
 
   div{
     position: absolute;
-    margin-top: -28px;
+    margin-top: -30px;
     margin-left: 263px;
     color: $white;
     font-weight: 400;
@@ -545,6 +662,19 @@ $primary: #316BC2;
     align-items: center;
     color: $white;
     font-weight: 600;
+    transition: 200ms ease;
+    background-color: #316BC2;
+    gap: 5px;
+    svg{
+      fill: $white;
+      width: 12px;
+    }
+
+  }
+
+  div:hover{
+    opacity: .6;
+    cursor: pointer;
     background-color: #316BC2;
   }
 }
@@ -617,7 +747,15 @@ svg:hover{
   width: 200px;
 }
 
-
+.job-selection {
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 
 

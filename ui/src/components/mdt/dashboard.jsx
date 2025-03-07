@@ -74,7 +74,7 @@ const Dashboard = (e) => {
 
                             <div className="accounts-bottom">
                                 <div className="balance-input">
-                                    <input onChange={(e) => setMoneyInput(e.target.value)} placeholder="Amount" type="text" />
+                                    <input onChange={(e) => setMoneyInput(e.target.value)} placeholder="Amount" type="number" />
                                     <div>$</div>
                                 </div>
 
@@ -82,10 +82,12 @@ const Dashboard = (e) => {
                                     <div onClick={() => {
                                         nuicallback('withdraw:balance', {job: data.job,amount: moneyinput}).then(e.updateaccountbalance)
                                     }}>
-                                        Withdraw
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M169.4 470.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 370.8 224 64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 306.7L54.6 265.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"/></svg>
+                                        <p>Withdraw</p>
                                     </div>
                                     <div onClick={() => nuicallback('deposit:balance', {job: data.job,amount: moneyinput}).then(e.updateaccountbalance)}>
-                                        Deposit
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2 160 448c0 17.7 14.3 32 32 32s32-14.3 32-32l0-306.7L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"/></svg>
+                                        <p>Deposit</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +115,7 @@ const Dashboard = (e) => {
                                         <div  className="hire-id">{player.id}</div>
                                         <div className="hire-name">{player.name}</div>
                                      
-                                       <svg onClick={() => nuicallback('hire', {id: player.id, job: data.job})} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
+                                       <svg onClick={() => nuicallback('Hire', {id: player.id, job: data.job}).then(e.updatenearbyplayers)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>
                          
                                     </div>
                                     ))}

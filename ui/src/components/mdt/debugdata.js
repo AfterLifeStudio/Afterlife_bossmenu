@@ -3,7 +3,43 @@ export const gradedata = [
     {
         id: 0,
         label: 'Boss'
-    }
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
+    {
+        id: 0,
+        label: 'Boss'
+    },
 ]
 
 

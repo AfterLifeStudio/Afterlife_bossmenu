@@ -48,14 +48,13 @@ if Config.framework == 'esx' then
     lib.callback.register('Server:SetPlayerJob', function(source,data)
         local number = string.find(data.id, ':')
         local identifier = data.id:sub(number + 1)
-        local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
         
+        local xPlayer = ESX.GetPlayerFromIdentifier('bfe5ad5aad949cf4b0c730fde1754c647d82337d')
+        print(xPlayer,identifier)
         if xPlayer then
             xPlayer.setJob(data.job, data.grade)
-        else
-
-            local affectedRows = MySQL.update.await('UPDATE users SET job = ?, job_grade = ? WHERE identifier = ?', {data.job, data.grade ,data.id})
         end
+        local affectedRows = MySQL.update.await('UPDATE users SET job = ?, job_grade = ? WHERE identifier = ?', {data.job, data.grade ,data.id})
         return true
     end)
 
@@ -63,7 +62,6 @@ if Config.framework == 'esx' then
 
     lib.callback.register('Server:HirePlayer', function(source,data)
         local xPlayer = ESX.GetPlayerFromId(data.id)
-        
         if xPlayer then
             xPlayer.setJob(data.job, 0)
         end
@@ -85,6 +83,23 @@ if Config.framework == 'esx' then
 
         return options
     end)
+
+
+    GetPlayerCash = function (source)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        local cash = xPlayer.getMoney()
+        return cash
+    end
+
+    AddPlayerCash = function (source,amount)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        xPlayer.addMoney(amount)
+    end
+
+    RemovePlayerCash = function (source,amount)
+        local xPlayer = ESX.GetPlayerFromId(source)
+        xPlayer.removeMoney(amount)
+    end
     
 
 end

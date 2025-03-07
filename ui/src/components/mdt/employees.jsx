@@ -5,16 +5,16 @@ import Fade from "../../utils/Fade"
 
 
 const Employees = () => {
-  const [gradesdata, setGradesData] = useState([])
-  const [searcheddata, setSearcheddata] = useState([]);
-  const [data, setData] = useState([]);
+  const [gradesdata, setGradesData] = useState(gradedata)
+  const [searcheddata, setSearcheddata] = useState(employdata);
+  const [data, setData] = useState(employdata);
   const [counter, setCounter] = useState(-1);
   const [filtereddata, setFiltereddata] = useState([]);
   const [maxpages, setMaxpages] = useState(0);
   const [page, setPage] = useState(1);
 
   const [gradestate, setGradeState] = useState(false);
-  const [firestate, setFireState] = useState(false);
+
 
   useEffect(() => {
     nuicallback('GetJobPlayers').then((response) => {
@@ -188,12 +188,16 @@ const Employees = () => {
             <div
               onClick={() => {
                 if (counter > -1) {
-                  setFireState(true)
+                  nuicallback('Fire', { id: filtereddata[counter].id,job: 'umemployed', grade: 0 }).then((response) => {
+                    setData(response.players)
+                    setSearcheddata(response.players)
+                  })
                 }
               }}
               className={`employees-button ${counter > -1 ? "employeesaction" : "disabledbutton"
                 }`}
             >
+              <div className="fire-hover">Fire</div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                 <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM472 200l144 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
               </svg>
@@ -207,6 +211,7 @@ const Employees = () => {
               className={`employees-button ${counter > -1 ? "employeesaction" : "disabledbutton"
                 }`}
             >
+                            <div className="fire-hover">Promote</div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                 <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
               </svg>
@@ -247,6 +252,12 @@ const Employees = () => {
       <Fade in={gradestate}>
         <div className="grademenu">
           <div className="grademenu-container">
+            <div className="grades-title">
+            <div className="grades">GRADES</div>
+            <div
+            onClick={() => setGradeState(false)}
+             className="x">X</div>
+            </div>
             <div className="grademenu-options">
               {gradesdata.map(data => (
                 <div onClick={() => {
@@ -255,26 +266,36 @@ const Employees = () => {
                     setSearcheddata(response.players)
                   })
                   setGradeState(false)
-                }} className="grade-option">{data.label}</div>
+                }} className="grade-option">
+                  <div>
+                  {data.label}
+                  </div>
+                  <div  className="grade-rank">
+                    {data.id}
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </Fade>
 
-      <Fade in={firestate}>
+      
+
+      {/* <Fade in={firestate}>
         <div className="grademenu">
           <div className="firemenu-container">
+            <div>Fire ?</div>
             <div onClick={() => {
               nuicallback('Fire', { id: filtereddata[counter].id,job: 'umemployed', grade: 0 }).then((response) => {
                 setData(response.players)
                 setSearcheddata(response.players)
               })
               setFireState(false)
-            }} className="fire-confirm">Fire</div>
+            }} className="fire-confirm">Confirm</div>
           </div>
         </div>
-      </Fade>
+      </Fade> */}
     </>
   );
 };

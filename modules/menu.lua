@@ -20,6 +20,7 @@ RegisterNUICallback('Fire', function(data, cb)
 end)
 
 RegisterNUICallback('Hire', function(data, cb)
+    print('aa')
     local wait = lib.callback.await('Server:HirePlayer', false, data)
     cb({})
 end)
