@@ -1,15 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
+:root{
+  --background: #08121f;
+  --maincolor: #316BC2;
+  --lightmaincolor: #aaccff;
+  --blackhighlight: rgba(0, 0, 0, 0.192);
+  --white: rgba(255, 255, 255, 0.8);
+  --gradient: linear-gradient(145deg, rgba(23, 51, 92) 0%, rgba(49, 107, 194) 100%);
+  --gradient2: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+
+  --background: #0e0e0e;
+  --maincolor: #c43636;
+  --lightmaincolor: #f59292;
+  --blackhighlight: rgba(0, 0, 0, 0.192);
+  --white: rgba(255, 255, 255, 0.8);
+  --gradient: linear-gradient(145deg, rgba(71, 24, 24, 1) 0%, rgba(161, 32, 32, 1) 100%);
+  --gradient2: linear-gradient(145deg, rgba(71, 24, 24, 0.4) 0%, rgba(161, 32, 32, 0.4) 100%);
+}
 
 body {
-
   user-select: none;
 }
 
-$white: rgba(255, 255, 255, 0.8);
-$blackhighlight: rgba(0, 0, 0, 0.192);
-// $primary: #be2c15;
-$primary: #316bc2c4;
+
+
 
 .mdt-wrapper {
   position: absolute;
@@ -21,7 +35,7 @@ $primary: #316bc2c4;
   outline: 2px solid rgb(83, 83, 83);
   border: 7px solid rgb(5, 5, 5);
 
-  background: #091627;
+  background: var(--background);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,9 +47,93 @@ $primary: #316bc2c4;
 @keyframes open {
   0%{
     opacity: 0;
+    transform: translate(-50%, 0%);
   }
   100%{
     opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+
+.Login-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .login-title{
+    color: var(--white);
+    font-size: 60px;
+    font-weight: 700;
+  }
+
+  .login{
+    width: 500px;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    // background-image: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+
+    .login-button {
+        width: 130px;
+        border-radius: 5px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: var(--white);
+        font-weight: 600;
+        transition: 200ms ease;
+        background-color: var(--maincolor);
+        gap: 5px;
+        svg{
+          fill: var(--white);
+          width: 12px;
+        }
+    }
+
+    .login-button:hover {
+      opacity: .6;
+      cursor: pointer;
+    }
+
+    .login-input {
+      width: 270px;
+      height: 40px;
+      display: flex;
+
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 15px;
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.25);
+      border-radius: 5px;
+      background-color: var(--blackhighlight);
+      
+      .dots{
+        display: flex;
+        gap: 4px;
+      }
+
+      p{
+        border-radius: 100%;
+        width: 5px;
+        height: 5px;
+        background-color: var(--white);
+      }
+
+      svg{
+        width: 15px;
+        fill: var(--white);
+      }
+    }
+
   }
 }
 
@@ -67,17 +165,17 @@ $primary: #316bc2c4;
 
   svg {
     width: 15px;
-    fill: $white;
+    fill: var(--white);
   }
 
   div {
 
-    color: $white;
+    color: var(--white);
   }
 }
 
 .navbar-item:hover{
-  background-color: #316BC2;
+  background-color: var(--maincolor);
   cursor: pointer;
 }
 
@@ -127,11 +225,15 @@ $primary: #316bc2c4;
   width: 400px;
   height: 30px;
   border-radius: 5px;
-  background-color: rgba(49, 107, 194,.4)   ;
+  background: var(--gradient2);
   outline: none;
   border: none;
-  color: $white;
+  color: var(--white);
   padding-left: 10px;
+}
+
+.searchbar::placeholder{
+  color: var(--white);
 }
 
 .employees-wrapper{
@@ -141,13 +243,13 @@ $primary: #316bc2c4;
   padding: 20px;
   border-radius: 8px;
   height: 490px;
-  background-image: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+  background-image: var(--gradient2);
 }
 
 .employees-button{
   width: 30px;
   height: 30px;
-  background-color: $blackhighlight;
+  background-color: var(--blackhighlight);
   border-radius: 5px;
 
   display: flex;
@@ -156,12 +258,12 @@ $primary: #316bc2c4;
   transition: 100ms ease;
   svg{
     width: 15px;
-    fill: $white
+    fill: var(--white)
   }
 
   .fire-hover{
     display: none;
-    color: $white;
+    color: var(--white);
     margin-bottom: 60px;
     position: absolute;  
     font-size: 12px;
@@ -191,7 +293,7 @@ $primary: #316bc2c4;
   .fire-hover{
     display: flex;
   }
-  background-color: $primary;
+  background-color: var(--maincolor);
   cursor: pointer
 }
 
@@ -203,8 +305,8 @@ $primary: #316bc2c4;
   align-items: center;
   font-size: 18px;
   font-weight: bold;
-  color: $white;
-  fill: $white;
+  color: var(--white);
+  fill: var(--white);
 
   svg{
     width: 15px;
@@ -212,7 +314,7 @@ $primary: #316bc2c4;
 }
 
 .page-button:hover{
-  background-color: $primary !important;
+  background-color: var(--maincolor) !important;
   cursor: pointer;
 }
 
@@ -277,7 +379,7 @@ $primary: #316bc2c4;
   height: 395px;
   border-radius: 15px;
   padding: 10px 10px 30px 10px;
-  background-image:  linear-gradient(145deg, rgba(23, 51, 92) 0%, rgba(49, 107, 194) 100%);
+  background-image:  var(--gradient);
 
   .grades-title{
     display: flex;
@@ -288,14 +390,14 @@ $primary: #316bc2c4;
     padding: 0px 20px;
     .x{
       margin: 10px 2px;
-      color: $white;
+      color: var(--white);
       display: flex;
       justify-content: center;
       align-items: center;
       width: 22px;
       height: 22px;
       font-size: 12px;
-      background-color: $primary;
+      background-color: var(--maincolor);
       transition: 100ms ease;
       border-radius: 5px;
     }
@@ -307,7 +409,7 @@ $primary: #316bc2c4;
 
     div{
       margin: 10px 2px;
-      color: $white;
+      color: var(--white);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -329,7 +431,7 @@ $primary: #316bc2c4;
   div{
     font-size: 60px;
     font-weight: 700;
-    color: $white;
+    color: var(--white);
   }
 }
 
@@ -337,7 +439,7 @@ $primary: #316bc2c4;
   width: 100px;
   height: 35px;
   color: white;
-  background-color: $blackhighlight;
+  background-color: var(--blackhighlight);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -347,7 +449,7 @@ $primary: #316bc2c4;
 
 .fire-confirm{
   @extend .fire-cancel;
-  background-color: $primary;
+  background-color: var(--maincolor);
 }
 
 .fire-confirm:hover{
@@ -373,8 +475,8 @@ $primary: #316bc2c4;
     width: 100%;
     height: 40px;
     border-radius: 5px;
-    background-color: $blackhighlight;
-    color: $white;
+    background-color: var(--blackhighlight);
+    color: var(--white);
     transition: 100ms ease;
 
     div{
@@ -389,13 +491,13 @@ $primary: #316bc2c4;
       width: 0px !important;
       height: 25px !important;
       border-radius: 5px;
-      background-color: $blackhighlight;
+      background-color: var(--blackhighlight);
     }
   }
 
   .grade-option:hover{
     cursor: pointer;
-    background-color: $primary;
+    background-color: var(--maincolor);
   }
 }
 
@@ -412,7 +514,7 @@ $primary: #316bc2c4;
 }
 
 .employee:hover{
-  background-color: $blackhighlight;
+  background-color: var(--blackhighlight);
 }
 
 .dashboard{
@@ -443,8 +545,8 @@ $primary: #316bc2c4;
   border-radius: 100%;
   width: 50px;
   height: 50px;
-  background-color: $primary;
-  fill: #7db1ffea;
+  background-color: var(--maincolor);
+  fill: var(--lightmaincolor);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -455,7 +557,7 @@ $primary: #316bc2c4;
 }
 
 .profile-info{
-  color: $white;
+  color: var(--white);
   .name{
     font-size: 20px;
     font-weight: 700;
@@ -491,25 +593,25 @@ $primary: #316bc2c4;
   border-radius: 5px;
   background-position: center;
   background-size: cover;
-  background-image:  linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+  background-image:  var(--gradient2);
   display: flex;
   justify-content: center;
   align-items: center
 }
 .dashboard-location {
   @extend .dashboard-hire;
-  background-image: linear-gradient(145deg, rgba(23, 51, 92, .4) 0%, rgba(49, 107, 194, .4) 100%), url('../images/mrpd.png');
+  background-image: var(--gradient2), url('../images/mrpd.png');
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $white;
+  color: var(--white);
 }
 .dashboard-location-top{
   display: flex;
   flex-direction: column;
   column-gap: 5px;
   row-gap: 5px;
-  color: $white;
+  color: var(--white);
   div{
     display: flex ;
     flex-direction: row;
@@ -517,7 +619,7 @@ $primary: #316bc2c4;
 
   };
   svg {
-    fill: $white;
+    fill: var(--white);
     width: 15px;
   }
 }
@@ -541,7 +643,7 @@ $primary: #316bc2c4;
   font-size: 16px;
   svg{
     width: 20px;
-    fill: $white;
+    fill: var(--white);
   }
 }
 
@@ -555,11 +657,11 @@ $primary: #316bc2c4;
 
 .dashboard-title{
   font-size: 30px;
-  color: $white;
+  color: var(--white);
 }
 .dashboard-description{
   font-size: 30px;
-  color: #7db1ffea;
+  color: var(--lightmaincolor);
   font-weight: 750;
   width: 420px;
 
@@ -572,7 +674,7 @@ $primary: #316bc2c4;
   gap: 10px;
   svg{
     width: 40px;
-    fill: $white;
+    fill: var(--white);
   }
 }
 
@@ -584,10 +686,10 @@ $primary: #316bc2c4;
   .title{
     font-size: 18px;
     font-weight: 600;
-    color: $white
+    color: var(--white)
   };
   .description {
-    color: $white;
+    color: var(--white);
     opacity: .7;
     font-size: 12px;
   }
@@ -601,13 +703,13 @@ $primary: #316bc2c4;
 
 
 .balance-title{
-  color: $white;
+  color: var(--white);
   opacity: .7;
   font-size: 18px;
 }
 
 .balance{
-  color: $white;
+  color: var(--white);
   font-weight: 700;
   font-size: 35px;
 }
@@ -618,10 +720,10 @@ $primary: #316bc2c4;
     height: 35px;
     border-radius: 5px;
     padding-left: 15px;
-    color: $white;
+    color: var(--white);
     border: none;
     outline: none;
-    background-color: $blackhighlight;
+    background-color: var(--blackhighlight);
     font-weight: 600;
 
     border: 2px solid rgba(0, 0, 0, 0);
@@ -635,7 +737,7 @@ $primary: #316bc2c4;
   }
 
   input:focus{
-    border: 2px solid $primary;
+    border: 2px solid var(--maincolor);
  
   }
 
@@ -643,7 +745,7 @@ $primary: #316bc2c4;
     position: absolute;
     margin-top: -30px;
     margin-left: 263px;
-    color: $white;
+    color: var(--white);
     font-weight: 400;
   }
 }
@@ -660,13 +762,13 @@ $primary: #316bc2c4;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: $white;
+    color: var(--white);
     font-weight: 600;
     transition: 200ms ease;
-    background-color: #316BC2;
+    background-color: var(--maincolor);
     gap: 5px;
     svg{
-      fill: $white;
+      fill: var(--white);
       width: 12px;
     }
 
@@ -675,7 +777,7 @@ $primary: #316bc2c4;
   div:hover{
     opacity: .6;
     cursor: pointer;
-    background-color: #316BC2;
+    background-color: var(--maincolor);
   }
 }
 
@@ -689,7 +791,7 @@ $primary: #316bc2c4;
 }
 
 .hire-title{
-  color: $white;
+  color: var(--white);
 
   font-size: 18px;
 }
@@ -728,7 +830,7 @@ svg:hover{
 }
 
 .hire-id{
-  color: $white;
+  color: var(--white);
   font-weight: 600;
   width: 25px;
   height: 25px;
@@ -742,7 +844,7 @@ svg:hover{
 .hire-name{
   font-size: 16px;
   font-weight: 600;
-  color: $white;
+  color: var(--white);
 
   width: 200px;
 }
@@ -807,7 +909,7 @@ svg:hover{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: $white;
+  color: var(--white);
   font-size: 25px;
   font-weight: 600;
 }
@@ -824,7 +926,7 @@ svg:hover{
 
     width: 80%;
     padding-left: 20px;
-    color: $white;
+    color: var(--white);
     height: 44px;
     display: flex;
     align-items: center;
@@ -832,11 +934,11 @@ svg:hover{
 
     gap: 30px;
     border-radius: 10px;
-    // background-color: $blackhighlight;
+    // background-color: var(--blackhighlight);
     font-size: 16px;
     font-weight: 500;
     svg{
-      fill: $white;
+      fill: var(--white);
       width: 20px;
       opacity: 0.6;
     }
@@ -853,7 +955,7 @@ svg:hover{
   font-weight: 700;
   width: 80%;
   text-transform: uppercase;
-  color: $white;
+  color: var(--white);
 
   .item{
     border-radius: 10px;
@@ -875,14 +977,14 @@ svg:hover{
   align-items: center;
   font-family: Inter;
   font-size: 14px;
-  color: $white;
+  color: var(--white);
   background: linear-gradient(180deg, #1E0D03 0%, #350D07 50%, #2A0A00 100%);
 }
 
 .arrow-down{
   
   svg{
-    fill: $white;
+    fill: var(--white);
     width: 20px;
   }
 }
@@ -920,3 +1022,24 @@ svg:hover{
 //     opacity: 1;
 //   }
 // }
+
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    }
+
+    @keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+    } 

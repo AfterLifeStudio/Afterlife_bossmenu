@@ -1,12 +1,12 @@
 RegisterNUICallback('GetJobPlayers', function(data, cb)
-    local response = lib.callback.await('GetJobPlayers', false, 'police')
+    local response = lib.callback.await('GetJobPlayers', false, data)
 
     cb(response)
 end)
 
 RegisterNUICallback('SetGrade', function(data, cb)
     local wait = lib.callback.await('Server:SetPlayerJob', false,data)
-    local response = lib.callback.await('GetJobPlayers', false, 'police')
+    local response = lib.callback.await('GetJobPlayers', false, data)
     cb(response)
 end)
 
@@ -15,12 +15,11 @@ RegisterNUICallback('Fire', function(data, cb)
     data.job = 'unemployed'
     data.grade = 0
     local wait = lib.callback.await('Server:SetPlayerJob', false,data)
-    local response = lib.callback.await('GetJobPlayers', false, 'police')
+    local response = lib.callback.await('GetJobPlayers', false, data.jobdata)
     cb(response)
 end)
 
 RegisterNUICallback('Hire', function(data, cb)
-    print('aa')
     local wait = lib.callback.await('Server:HirePlayer', false, data)
     cb({})
 end)

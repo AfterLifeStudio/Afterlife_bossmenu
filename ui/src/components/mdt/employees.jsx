@@ -1,44 +1,39 @@
 import { useEffect, useState } from "react";
 import { employdata, gradedata } from "./debugdata";
 import { nuicallback } from "../../utils/nuicallback";
-import Fade from "../../utils/Fade"
+import Fade from "../../utils/Fade";
 
-
-const Employees = () => {
-  const [gradesdata, setGradesData] = useState(gradedata)
-  const [searcheddata, setSearcheddata] = useState(employdata);
-  const [data, setData] = useState(employdata);
+const Employees = (jdata) => {
+  const [gradesdata, setGradesData] = useState(gradedata);
+  const [searcheddata, setSearcheddata] = useState([]);
+  const [data, setData] = useState([]);
   const [counter, setCounter] = useState(-1);
   const [filtereddata, setFiltereddata] = useState([]);
   const [maxpages, setMaxpages] = useState(0);
   const [page, setPage] = useState(1);
 
+  const [activtystate, setActivityState] = useState(false);
   const [gradestate, setGradeState] = useState(false);
 
-
   useEffect(() => {
-    nuicallback('GetJobPlayers').then((response) => {
-      setData(response.players)
-      setSearcheddata(response.players)
-      setGradesData(response.grades)
-    })
-  }, [])
-
-
+    nuicallback("GetJobPlayers",jdata.job).then((response) => {
+      setData(response.players);
+      setSearcheddata(response.players);
+      setGradesData(response.grades);
+    });
+  }, []);
 
   const pageincrement = () => {
     if (page < maxpages) {
-      setPage(page + 1)
+      setPage(page + 1);
     }
-  }
-
+  };
 
   const pagedecrement = () => {
     if (page > 1) {
-      setPage(page - 1)
+      setPage(page - 1);
     }
-  }
-
+  };
 
   useEffect(() => {
     setMaxpages(Math.ceil(searcheddata.length / 10));
@@ -51,7 +46,7 @@ const Employees = () => {
       }
     }
     setFiltereddata(dat);
-    setCounter(-1)
+    setCounter(-1);
   }, [page, searcheddata]);
 
   const handlepage = (newpage) => {
@@ -66,28 +61,21 @@ const Employees = () => {
     setFiltereddata(dat);
   };
 
-
   const search = (event) => {
-
-    if (event.target.value == '') {
-      setSearcheddata(data)
+    if (event.target.value == "") {
+      setSearcheddata(data);
     } else {
-
-      const searchdata = []
+      const searchdata = [];
       for (const i in data) {
-
         if (data[i].name.includes(event.target.value)) {
-          searchdata.push(data[i])
+          searchdata.push(data[i]);
         }
       }
 
-      setSearcheddata(searchdata)
+      setSearcheddata(searchdata);
     }
-    handlepage(1)
-  }
-
-
-
+    handlepage(1);
+  };
 
   var pagebuttons = [];
 
@@ -100,7 +88,7 @@ const Employees = () => {
     pagebuttons.push(
       <div
         style={{
-          backgroundColor: page == key ? "$primary" : "transparent",
+          backgroundColor: page == key ? "--var(maincolor)" : "transparent",
         }}
         onClick={() => handlepage(key)}
         className="page-button"
@@ -109,7 +97,6 @@ const Employees = () => {
       </div>
     );
   }
-
 
   return (
     <>
@@ -134,8 +121,7 @@ const Employees = () => {
               <>
                 <div
                   style={{
-                    backgroundColor:
-                      page == 1 ? "#316BC2" : "transparent",
+                    backgroundColor: page == 1 ? "var(--maincolor)" : "transparent",
                   }}
                   onClick={() => handlepage(1)}
                   className="page-button"
@@ -144,8 +130,7 @@ const Employees = () => {
                 </div>
                 <div
                   style={{
-                    backgroundColor:
-                      page == 2 ? "#316BC2" : "transparent",
+                    backgroundColor: page == 2 ? "var(--maincolor)" : "transparent",
                   }}
                   onClick={() => handlepage(2)}
                   className="page-button"
@@ -154,8 +139,7 @@ const Employees = () => {
                 </div>
                 <div
                   style={{
-                    backgroundColor:
-                      page == 3 ? "#316BC2" : "transparent",
+                    backgroundColor: page == 3 ? "var(--maincolor)" : "transparent",
                   }}
                   onClick={() => handlepage(3)}
                   className="page-button"
@@ -164,8 +148,7 @@ const Employees = () => {
                 </div>
                 <div
                   style={{
-                    backgroundColor:
-                      page == 4 ? "#316BC2" : "transparent",
+                    backgroundColor: page == 4 ? "var(--maincolor)" : "transparent",
                   }}
                   onClick={() => handlepage(4)}
                   className="page-button"
@@ -188,32 +171,55 @@ const Employees = () => {
             <div
               onClick={() => {
                 if (counter > -1) {
-                  nuicallback('Fire', { id: filtereddata[counter].id,job: 'umemployed', grade: 0 }).then((response) => {
-                    setData(response.players)
-                    setSearcheddata(response.players)
-                  })
+                  nuicallback("Fire", {
+                    id: filtereddata[counter].id,
+                    job: "umemployed",
+                    grade: 0,
+                  }).then((response) => {
+                    setData(response.players);
+                    setSearcheddata(response.players);
+                  });
                 }
               }}
-              className={`employees-button ${counter > -1 ? "employeesaction" : "disabledbutton"
-                }`}
+              className={`employees-button ${
+                counter > -1 ? "employeesaction" : "disabledbutton"
+              }`}
             >
               <div className="fire-hover">Fire</div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                 <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM472 200l144 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-144 0c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
               </svg>
             </div>
+
             <div
               onClick={() => {
                 if (counter > -1) {
-                  setGradeState(true)
+                  setGradeState(true);
                 }
               }}
-              className={`employees-button ${counter > -1 ? "employeesaction" : "disabledbutton"
-                }`}
+              className={`employees-button ${
+                counter > -1 ? "employeesaction" : "disabledbutton"
+              }`}
             >
-                            <div className="fire-hover">Promote</div>
+              <div className="fire-hover">Promote</div>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
                 <path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304l91.4 0C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7L29.7 512C13.3 512 0 498.7 0 482.3zM504 312l0-64-64 0c-13.3 0-24-10.7-24-24s10.7-24 24-24l64 0 0-64c0-13.3 10.7-24 24-24s24 10.7 24 24l0 64 64 0c13.3 0 24 10.7 24 24s-10.7 24-24 24l-64 0 0 64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+              </svg>
+            </div>
+
+            <div
+              onClick={() => {
+                if (counter > -1) {
+                  setActivityState(true);
+                }
+              }}
+              className={`employees-button ${
+                counter > -1 ? "employeesaction" : "disabledbutton"
+              }`}
+            >
+              <div className="fire-hover">Activity</div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z" />
               </svg>
             </div>
           </div>
@@ -238,12 +244,18 @@ const Employees = () => {
               <div className="name">{data.name}</div>
               <div className="gender">{data.gender}</div>
               <div className="rank">{data.rank}</div>
-              <div style={{color: '#86BF79'}} className="salary">{data.salary}$</div>
-              {data.status 
-                ? <div style={{ color: '#86BF79' }} className="status"><p style={{backgroundColor: '#86BF79'}}></p>nline</div>
-                : <div style={{ color: '#BB494B' }} className="status"><p style={{backgroundColor: '#BB494B'}}></p>ffline</div>
-              }
-
+              <div style={{ color: "#86BF79" }} className="salary">
+                {data.salary}$
+              </div>
+              {data.status ? (
+                <div style={{ color: "#86BF79" }} className="status">
+                  <p style={{ backgroundColor: "#86BF79" }}></p>nline
+                </div>
+              ) : (
+                <div style={{ color: "#BB494B" }} className="status">
+                  <p style={{ backgroundColor: "#BB494B" }}></p>ffline
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -253,34 +265,35 @@ const Employees = () => {
         <div className="grademenu">
           <div className="grademenu-container">
             <div className="grades-title">
-            <div className="grades">GRADES</div>
-            <div
-            onClick={() => setGradeState(false)}
-             className="x">X</div>
+              <div className="grades">GRADES</div>
+              <div onClick={() => setGradeState(false)} className="x">
+                X
+              </div>
             </div>
             <div className="grademenu-options">
-              {gradesdata.map(data => (
-                <div onClick={() => {
-                  nuicallback('SetGrade', { id: filtereddata[counter].id,job: filtereddata[counter].job, grade: data.id }).then((response) => {
-                    setData(response.players)
-                    setSearcheddata(response.players)
-                  })
-                  setGradeState(false)
-                }} className="grade-option">
-                  <div>
-                  {data.label}
-                  </div>
-                  <div  className="grade-rank">
-                    {data.id}
-                  </div>
+              {gradesdata.map((data) => (
+                <div
+                  onClick={() => {
+                    nuicallback("SetGrade", {
+                      id: filtereddata[counter].id,
+                      job: filtereddata[counter].job,
+                      grade: data.id,
+                    }).then((response) => {
+                      setData(response.players);
+                      setSearcheddata(response.players);
+                    });
+                    setGradeState(false);
+                  }}
+                  className="grade-option"
+                >
+                  <div>{data.label}</div>
+                  <div className="grade-rank">{data.id}</div>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </Fade>
-
-      
 
       {/* <Fade in={firestate}>
         <div className="grademenu">
