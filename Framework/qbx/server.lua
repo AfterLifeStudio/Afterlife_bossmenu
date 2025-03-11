@@ -3,8 +3,8 @@ if Config.framework == 'qbx' then
   local ESX = exports["es_extended"]:getSharedObject()
 
   lib.callback.register('GetJobPlayersCount', function(source,job)
-      local xPlayers = ESX.GetExtendedPlayers('job', job)
-      return #xPlayers
+      local Players = exports.qbx_core:GetDutyCountJob(job)
+      return Players
   end)
 
   lib.callback.register('GetJobPlayers', function(source,job)
