@@ -11,9 +11,9 @@ import JobSelection from "./jobselection";
 function MDT() {
   // const [loginstate, setLoginState] = useState(false);
   // const [loadingstate, setLoadingState] = useState(false);
-  const [mainjob, setMainJob] = useState('police')
+  const [mainjob, setMainJob] = useState(false)
   const [jobselectstate, setJobSelectState] = useState(false);
-  const [data, setData] = useState(dasboarddata)
+  const [data, setData] = useState(false)
 
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function MDT() {
     r.style.setProperty('--white', data.theme.white);
     r.style.setProperty('--gradient', data.theme.gradient);
     r.style.setProperty('--gradient2', data.theme.gradient2);
-    setMainJob(data)
+    setMainJob(data.job)
   });
 
 

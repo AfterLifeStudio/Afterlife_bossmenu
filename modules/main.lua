@@ -9,8 +9,8 @@ local IsControlJustReleased = IsControlJustReleased
 
 local LocationInteract = function(location)
     currentlocation = location
-
-    Nuimessage('mdt', location.job)
+print(location.job,location.theme)
+    Nuimessage('mdt', {job = location.job, theme = location.theme})
     SetNuiFocus(true, true)
 end
 
