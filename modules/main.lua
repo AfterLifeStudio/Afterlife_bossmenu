@@ -9,8 +9,7 @@ local IsControlJustReleased = IsControlJustReleased
 
 local LocationInteract = function(location)
     currentlocation = location
-print(location.job,location.theme)
-    Nuimessage('mdt', {job = location.job, theme = location.theme})
+    Nuimessage('mdt', { job = location.job, theme = Config.themes[location.theme] })
     SetNuiFocus(true, true)
 end
 
@@ -18,7 +17,7 @@ end
 RegisterNUICallback('GetDashboardData', function(data, cb)
     local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId()), 5, true)
     local playersid = {}
-    local location = currentlocation 
+    local location = currentlocation
 
     for i = 1, #players do
         playersid[#playersid + 1] = GetPlayerServerId(NetworkGetPlayerIndexFromPed(players[i].ped))
@@ -34,15 +33,16 @@ RegisterNUICallback('GetDashboardData', function(data, cb)
     }
 
     if location.otherjobs then
-    for i = 1, #location.otherjobs do
-        otherjobs[#otherjobs + 1] = {
-            job = location.otherjobs[i].job,
-            label = location.otherjobs[i].label
-        }
+        for i = 1, #location.otherjobs do
+            otherjobs[#otherjobs + 1] = {
+                job = location.otherjobs[i].job,
+                label = location.otherjobs[i].label
+            }
+        end
     end
-end
 
     local data = {
+        id = location.id,
         job = data,
         playerfirstname = FirstName(),
         playername = FirstName() .. ' ' .. LastName(),

@@ -1,13 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 :root{
-  --background: #08121f;
-  --maincolor: #316BC2;
-  --lightmaincolor: #aaccff;
-  --blackhighlight: rgba(0, 0, 0, 0.192);
-  --white: rgba(255, 255, 255, 0.8);
-  --gradient: linear-gradient(145deg, rgba(23, 51, 92) 0%, rgba(49, 107, 194) 100%);
-  --gradient2: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
+
 
   --background: #0e0e0e;
   --maincolor: #c43636;
@@ -16,6 +10,14 @@
   --white: rgba(255, 255, 255, 0.8);
   --gradient: linear-gradient(145deg, rgba(71, 24, 24, 1) 0%, rgba(161, 32, 32, 1) 100%);
   --gradient2: linear-gradient(145deg, rgba(71, 24, 24, 0.4) 0%, rgba(161, 32, 32, 0.4) 100%);
+
+  --background: #08121f;
+  --maincolor: #316BC2;
+  --lightmaincolor: #aaccff;
+  --blackhighlight: rgba(0, 0, 0, 0.192);
+  --white: rgba(255, 255, 255, 0.8);
+  --gradient: linear-gradient(145deg, rgba(23, 51, 92) 0%, rgba(49, 107, 194) 100%);
+  --gradient2: linear-gradient(145deg, rgba(23, 51, 92,.4) 0%, rgba(49, 107, 194,.4) 100%);
 }
 
 body {
@@ -39,7 +41,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 25px;
+  border-radius: 10px;
   font-family: Inter;
   animation: open 300ms forwards;
 }
@@ -423,16 +425,11 @@ body {
 
 
 
-.firemenu-container{
+.activity-container{
   @extend .grademenu-container;
-  height: 200px;
+  height: fit-content;
   gap: 40px;
 
-  div{
-    font-size: 60px;
-    font-weight: 700;
-    color: var(--white);
-  }
 }
 
 .fire-cancel{
@@ -493,7 +490,49 @@ body {
       border-radius: 5px;
       background-color: var(--blackhighlight);
     }
+
+    .logs-icon{
+
+
+      .logs-hover{
+        display: none;
+        color: var(--white);
+        margin-top: -20px;
+        margin-left: -30px;
+        position: absolute;  
+        font-size: 12px;
+        animation: logshovercreate 200ms forwards;
+      }
+
+      
+
+      svg{
+        width: 15px;
+        fill: var(--white);
+      }
+    }
+
+    .logs-icon:hover{
+      .logs-hover{
+        display: flex !important;
+      }
+    }
+
   }
+
+
+
+  @keyframes logshovercreate {
+    0%{
+      opacity: 0;
+      margin-top: 0px;
+    }
+    100%{
+      margin-top: -20px;
+      opacity: 1;
+    }
+  }
+  
 
   .grade-option:hover{
     cursor: pointer;
@@ -557,6 +596,9 @@ body {
 }
 
 .profile-info{
+  display: flex;
+  flex-direction: column;
+
   color: var(--white);
   .name{
     font-size: 20px;
@@ -564,8 +606,16 @@ body {
   };
 
   .grade{
-
     opacity: .7;
+  }
+
+  .firstname{
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .lastname{
+    font-size: 15px;
   }
 }
 
@@ -600,7 +650,6 @@ body {
 }
 .dashboard-location {
   @extend .dashboard-hire;
-  background-image: var(--gradient2), url('../images/mrpd.png');
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1043,3 +1092,27 @@ svg:hover{
         transform: rotate(360deg);
     }
     } 
+
+
+
+    .activty-close{
+      position: absolute;
+      margin-bottom: 18%;
+      margin-left: 20%;
+      color: var(--white);
+      background-color: var(--maincolor);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
+      transition: 100ms ease;
+      border-radius: 5px;
+    }
+
+    .activty-close:hover{
+      cursor: pointer;
+      opacity: .7;
+    }

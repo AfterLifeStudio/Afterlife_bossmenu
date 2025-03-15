@@ -3,10 +3,10 @@ Config = {}
 GetFramework = function()
     if GetResourceState('es_extended') ~= 'missing' then
         return 'esx'
+    elseif GetResourceState('qbx_core') ~= 'missing' then
+        return 'qbx'
     elseif GetResourceState('qb-core') ~= 'missing' then
         return 'qb'
-    else
-        return 'qbx'
     end
 end
 
@@ -17,7 +17,7 @@ Config.framework = GetFramework() -- qb / esx /qbox
 
 Config.locations = {
     {
-        id = 'mr',
+        id = 'mrpd',
         label = 'Mission Row',
         description = 'Police department located nearthe legion square',
         job = 'police',
@@ -32,9 +32,9 @@ Config.locations = {
         coords = vec3(138.5408, -998.8748, 28.8485)
     },
     {
-        id = 'mr',
-        label = 'Mission Row',
-        description = 'Police department located nearthe legion square',
+        id = 'pillbox',
+        label = 'Pillbox Hospital',
+        description = 'Hospital located near the legion square',
         theme = 'red',
         job = 'ambulance',
         coords = vec3(145.3994, -1000.9869, 29.2590),

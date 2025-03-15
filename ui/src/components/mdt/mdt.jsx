@@ -29,8 +29,8 @@ function MDT() {
   NuiEvent("mdt", (data) => {
     let r = document.querySelector(':root');
     r.style.setProperty('--background', data.theme.background);
-    r.style.setProperty('--maincolor', data.theme.primary);
-    r.style.setProperty('--lightmaincolor', data.theme.lightprimary);
+    r.style.setProperty('--maincolor', data.theme.maincolor);
+    r.style.setProperty('--lightmaincolor', data.theme.lightmaincolor);
     r.style.setProperty('--blackhighlight', data.theme.blackhighlight);
     r.style.setProperty('--white', data.theme.white);
     r.style.setProperty('--gradient', data.theme.gradient);
@@ -57,6 +57,22 @@ function MDT() {
   //     setLoadingState(false)
   //   }, 2000);
   // }
+
+
+  useEffect(() => {
+
+    const handlekey = (e) => {
+      if (data && e.code == 'Escape') {
+        setMainJob(false);
+        setData(false);
+        nuicallback("exit")
+      }
+    };
+
+    window.addEventListener('keydown',handlekey);
+    return () => window.removeEventListener('keydown',handlekey);
+  })
+
 
 
   return (

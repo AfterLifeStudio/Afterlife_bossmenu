@@ -12,11 +12,10 @@ if Config.framework == 'qb' then
         local Players = MySQL.query.await("SELECT * FROM `players` WHERE `job` LIKE '%" .. job .. "%'", {})
 
 
-        local qbxgrades = exports.qbx_core:GetJob(job)
+        local qbgrades = QBCore.Shared.Jobs[job].grades
         local gradesoption = {}
 
-        for k, v in pairs(qbxgrades.grades) do
-            print(k,v)
+        for k, v in pairs(qbgrades) do
             gradesoption[#gradesoption + 1] = {
                 label = v.label,
                 id = k
@@ -91,4 +90,42 @@ if Config.framework == 'qb' then
         local citizenid = QBCore.Functions.GetPlayer(source).PlayerData.citizenid
         exports.qbx_core:RemoveMoney(citizenid, 'cash', amount, 'Job Account Deposit')
     end
+
+
+    RegisterNetEvent('QBCore:Server:OnPlayerLoaded', function()
+        local player = QBCore.Functions.GetPlayer(source)
+        -- if player == nil then return end
+        -- if player.PlayerData.job.onduty then
+            Checkin(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+        -- end
+    end)
+
+
+    AddEventHandler('QBCore:Server:OnJobUpdate', function(source, job)
+        local player = QBCore.Functions.GetPlayer(source)
+        Checkin(player.PlayerData.source, player.PlayerData.citizenid, job.name)
+    end)
+
+    -- AddEventHandler('QBCore:Server:SetDuty', function(source, duty)
+    --     local player = QBCore.Functions.GetPlayer(source)
+    --     if player == nil then return end
+    --     if duty then
+    --         Checkin(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+    --     else
+    --         CheckOut(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+    --     end
+    -- end)
+
+
+    AddEventHandler('QBCore:Server:OnPlayerUnload', function()
+        local player = QBCore.Functions.GetPlayer(source)
+        CheckOut(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+    end)
+
+
+    AddEventHandler('playerDropped', function()
+        PlayerLeave(source)
+    end)
+
+
 end

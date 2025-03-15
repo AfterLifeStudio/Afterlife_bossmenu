@@ -50,7 +50,7 @@ if Config.framework == 'esx' then
         local identifier = data.id:sub(number + 1)
         
         local xPlayer = ESX.GetPlayerFromIdentifier('bfe5ad5aad949cf4b0c730fde1754c647d82337d')
-        print(xPlayer,identifier)
+
         if xPlayer then
             xPlayer.setJob(data.job, data.grade)
         end
@@ -101,5 +101,22 @@ if Config.framework == 'esx' then
         xPlayer.removeMoney(amount)
     end
     
+
+    RegisterNetEvent('esx:playerLoaded', function(player)
+        Checkin(player.source, player.identifier, player.job.name)
+    end)
+
+    RegisterNetEvent('esx:playerDropped', function(playerId)
+        local xPlayer = ESX.GetPlayerFromId(playerId)
+        CheckOut(xPlayer.source, xPlayer.getIdentifier(), xPlayer.getJob().name)
+    end)
+
+    RegisterNetEvent('esx:setJob', function(player, job)
+        Checkin(player.source, player.identifier, job.name)
+    end)
+
+    AddEventHandler('playerDropped', function()
+        PlayerLeave(source)
+    end)
 
 end
