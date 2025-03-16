@@ -10,6 +10,8 @@ if Config.framework == 'esx' then
 
         local xPlayers =  MySQL.query.await('SELECT `identifier`, `job`, `job_grade`, `firstname`, `lastname`, `dateofbirth`, `sex` FROM `users` WHERE `job` = ?', {job})
 
+        local onlineplayers = ESX.GetExtendedPlayers('job', 'police')
+
 
         local esxgrades = ESX.GetJobs()[job].grades
         local gradesoption = {}
@@ -23,11 +25,23 @@ if Config.framework == 'esx' then
 
         local options = {}
 
-        for i = 1, #xPlayers do
+
+        for i = 1, #onlineplayers do
             local player = xPlayers[i]
 
-            local number = string.find(player.identifier, ':')
-            local identifier = player.identifier:sub(number + 1)
+            options[#options + 1] = {
+                id = player.getIdentifier(),
+                name = player.getName();
+                gender = player.gender == 'm' and 'MALE' or 'FEMALE',
+                job = player.getJob().name,
+                rank = ESX.GetJobs()[player.job].grades[tostring(player.job_grade)].label,
+                salary = 200,
+                status = true,
+            }
+        end
+
+        for i = 1, #xPlayers do
+            local player = xPlayers[i]
 
             options[#options + 1] = {
                 id = player.identifier,
@@ -36,7 +50,7 @@ if Config.framework == 'esx' then
                 job = player.job,
                 rank = ESX.GetJobs()[player.job].grades[tostring(player.job_grade)].label,
                 salary = 200,
-                status = ESX.GetPlayerFromIdentifier(identifier) and true or false,
+                status = false,
             }
         end
 
@@ -49,7 +63,7 @@ if Config.framework == 'esx' then
         local number = string.find(data.id, ':')
         local identifier = data.id:sub(number + 1)
         
-        local xPlayer = ESX.GetPlayerFromIdentifier('bfe5ad5aad949cf4b0c730fde1754c647d82337d')
+        local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
 
         if xPlayer then
             xPlayer.setJob(data.job, data.grade)
