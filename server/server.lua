@@ -3,31 +3,11 @@
 OnlineEmployees = {}
 
 CreateThread(function()
-    local response = {}
     pcall(function()
-        response = MySQL.prepare.await('SELECT * FROM jobs_account')
-    end)
-
-    if response then
         for i = 1, #Config.locations do
-            local exist = false
-            for k, v in pairs(response) do
-                if v == Config.locations[i].job then
-                    exist = true
-                end
-            end
-
-            if exist == false then
-                MySQL.insert.await('INSERT INTO `jobs_account` (job, account) VALUES (?, ?)',
-                    { Config.locations[i].job, 0 })
-            end
+            MySQL.insert.await('INSERT INTO `jobs_account` (job, account) VALUES (?, ?)', { Config.locations[i].job, 0 })
         end
-    else
-        for key = 1, #Config.locations do
-            MySQL.insert.await('INSERT INTO `jobs_account` (job, account) VALUES (?, ?)',
-                { Config.locations[key].job, 0 })
-        end
-    end
+    end)
 end)
 
 
@@ -36,7 +16,7 @@ lib.callback.register('JobAccounts:Server:Add', function(source, data)
     local prevammount = MySQL.prepare.await('SELECT account FROM jobs_account WHERE job = ?', { data.job })
     local amount = prevammount
 
-    if havecash >= tonumber(data.amount) then
+    if  (havecash >= tonumber(data.amount)) then
         amount = tonumber(data.amount) + prevammount
         local response = MySQL.update.await('UPDATE jobs_account SET account = ? WHERE job = ?', { amount, data.job })
         RemovePlayerCash(source,tonumber(data.amount))
@@ -66,7 +46,7 @@ end)
 lib.callback.register('GetPlayerActivity', function(source, data)
 
     local activity = MySQL.prepare.await('SELECT lastcheckin, lastcheckOut, playtime FROM jobs_activity WHERE job = ? AND id = ?', { data.job, data.id })
-print(json.encode(activity))
+
     local data = {
         playtime = activity.playtime..' hours',
         checkin = activity.lastcheckin,
@@ -92,14 +72,19 @@ Checkin = function (source,id,job)
 end
 
 CheckOut = function (source, id, job)
-    table.remove(OnlineEmployees, id)
+    for k,v in pairs(OnlineEmployees) do
+        if k == id then
+            OnlineEmployees[k] = nil
+        end
+    end
     MySQL.update.await('UPDATE `jobs_activity` SET lastcheckOut = ? WHERE id = ? AND job = ?', {os.date('%Y-%m-%d %H:%M:%S'), id, job })
 end
 
 PlayerLeave = function (source)
     for k,v in pairs(OnlineEmployees) do
         if v.source == source then
-            table.remove(OnlineEmployees, k)
+            MySQL.update.await('UPDATE `jobs_activity` SET lastcheckOut = ? WHERE id = ? AND job = ?', {os.date('%Y-%m-%d %H:%M:%S'), k, v.job })
+            OnlineEmployees[k] = nil
             break;
         end
     end

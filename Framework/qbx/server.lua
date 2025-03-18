@@ -22,13 +22,12 @@ if Config.framework == 'qbx' then
 
         for i = 1, #Players do
             local citizenid = Players[i].citizenid
-            local player = exports.qbx_core:GetPlayerByCitizenId(citizenid) or
-            exports.qbx_core:GetOfflinePlayer(citizenid)
+            local player = exports.qbx_core:GetPlayerByCitizenId(citizenid) or exports.qbx_core:GetOfflinePlayer(citizenid)
 
             options[#options + 1] = {
                 id = citizenid,
                 name = player.PlayerData.charinfo.firstname .. ' ' .. player.PlayerData.charinfo.lastname,
-                gender = player.PlayerData.charinfo == 1 and 'MALE' or 'FEMALE',
+                gender = player.PlayerData.charinfo.gender == 0 and 'MALE' or 'FEMALE',
                 job = job,
                 rank = player.PlayerData.job.grade.name,
                 salary = 200,
@@ -124,10 +123,8 @@ if Config.framework == 'qbx' then
     -- end)
 
 
-    AddEventHandler('QBCore:Server:OnPlayerUnload', function()
-        print('aaa')
-        local player = exports.qbx_core:GetPlayer(source)
-        CheckOut(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+    AddEventHandler('QBCore:Server:OnPlayerUnload', function(source)
+        PlayerLeave(source)
     end)
 
 

@@ -16,10 +16,10 @@ const Employees = (jdata) => {
   const [gradestate, setGradeState] = useState(false);
 
   const debug = {
-    checkin: '',
-    checkout: '',
-    playtime: ''
-  }
+    checkin: "",
+    checkout: "",
+    playtime: "",
+  };
 
   useEffect(() => {
     nuicallback("GetJobPlayers", jdata.job).then((response) => {
@@ -83,26 +83,26 @@ const Employees = (jdata) => {
     handlepage(1);
   };
 
-  var pagebuttons = [];
+  // var pagebuttons = [];
 
-  for (
-    var i = page == maxpages ? page - 3 : page - 2;
-    page == maxpages ? i <= page : i <= page + 1;
-    i++
-  ) {
-    const key = i;
-    pagebuttons.push(
-      <div
-        style={{
-          backgroundColor: page == key ? "--var(maincolor)" : "transparent",
-        }}
-        onClick={() => handlepage(key)}
-        className="page-button"
-      >
-        {i}
-      </div>
-    );
-  }
+  // for (
+  //   var i = page == maxpages ? page - 3 : page - 2;
+  //   page == maxpages ? i <= page : i <= page + 1;
+  //   i++
+  // ) {
+  //   const key = i;
+  //   pagebuttons.push(
+  //     <div
+  //       style={{
+  //         backgroundColor: page == key ? "--var(maincolor)" : "transparent",
+  //       }}
+  //       onClick={() => handlepage(key)}
+  //       className="page-button"
+  //     >
+  //       {i}
+  //     </div>
+  //   );
+  // }
 
   return (
     <>
@@ -123,52 +123,19 @@ const Employees = (jdata) => {
               </svg>
             </div>
 
-            {page < 4 ? (
-              <>
-                <div
-                  style={{
-                    backgroundColor:
-                      page == 1 ? "var(--maincolor)" : "transparent",
-                  }}
-                  onClick={() => handlepage(1)}
-                  className="page-button"
-                >
-                  1
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      page == 2 ? "var(--maincolor)" : "transparent",
-                  }}
-                  onClick={() => handlepage(2)}
-                  className="page-button"
-                >
-                  2
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      page == 3 ? "var(--maincolor)" : "transparent",
-                  }}
-                  onClick={() => handlepage(3)}
-                  className="page-button"
-                >
-                  3
-                </div>
-                <div
-                  style={{
-                    backgroundColor:
-                      page == 4 ? "var(--maincolor)" : "transparent",
-                  }}
-                  onClick={() => handlepage(4)}
-                  className="page-button"
-                >
-                  4
-                </div>
-              </>
-            ) : (
-              pagebuttons
-            )}
+           
+              <div
+                style={{
+                  backgroundColor: "var(--maincolor)",
+                }}
+                className="page-button"
+              >
+                {page}
+              </div>
+           
+
+            
+
             <div className="page-button">....</div>
             <div onClick={() => handlepage(maxpages)} className="page-button">
               {maxpages}
@@ -219,7 +186,10 @@ const Employees = (jdata) => {
             <div
               onClick={() => {
                 if (counter > -1) {
-                  nuicallback('GetPlayerActivity',{job: jdata.job, id: filtereddata[counter].id}).then((response) => setActivityState(response))
+                  nuicallback("GetPlayerActivity", {
+                    job: jdata.job,
+                    id: filtereddata[counter].id,
+                  }).then((response) => setActivityState(response));
                 }
               }}
               className={`employees-button ${
@@ -306,48 +276,60 @@ const Employees = (jdata) => {
 
       <Fade in={activtystate ? true : false}>
         <div className="grademenu">
-          
           <div className="activity-container">
-
-                          <div onClick={() => setActivityState(false)} className="activty-close">X</div>
-            <div style={{ flexDirection: "column",paddingTop: 15, }} className="profile">
+            <div
+              onClick={() => setActivityState(false)}
+              className="activty-close"
+            >
+              X
+            </div>
+            <div
+              style={{ flexDirection: "column", paddingTop: 15 }}
+              className="profile"
+            >
               <div className="profile-image">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
                   <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512l388.6 0c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304l-91.4 0z" />
                 </svg>
               </div>
               <div style={{ alignItems: "center" }} className="profile-info">
-                <div className="firstname">Osman Saleem</div>
- 
+                <div className="firstname">{filtereddata[counter] && filtereddata[counter].name}</div>
               </div>
             </div>
 
             <div className="grademenu-options">
-
               <div className="grade-option">
                 <div>{activtystate.checkin}</div>
                 <div className="logs-icon">
-                <div className="logs-hover">Check In</div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+                  <div className="logs-hover">Check In</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                  </svg>
                 </div>
               </div>
               <div className="grade-option">
                 <div>{activtystate.checkout}</div>
                 <div className="logs-icon">
-                <div className="logs-hover">Check Out</div>
-                <svg style={{transform: 'rotate(180deg)'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"/></svg>
+                  <div className="logs-hover">Check Out</div>
+                  <svg
+                    style={{ transform: "rotate(180deg)" }}
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                  >
+                    <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z" />
+                  </svg>
                 </div>
               </div>
               <div className="grade-option">
                 <div>{activtystate.playtime}</div>
                 <div className="logs-icon">
-                <div className="logs-hover">Playtime</div>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z"/></svg>
+                  <div className="logs-hover">Playtime</div>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path d="M160 80c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 352c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-352zM0 272c0-26.5 21.5-48 48-48l32 0c26.5 0 48 21.5 48 48l0 160c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48L0 272zM368 96l32 0c26.5 0 48 21.5 48 48l0 288c0 26.5-21.5 48-48 48l-32 0c-26.5 0-48-21.5-48-48l0-288c0-26.5 21.5-48 48-48z" />
+                  </svg>
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
       </Fade>

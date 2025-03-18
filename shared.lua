@@ -29,20 +29,24 @@ Config.locations = {
                 label = 'EMS'
             }
         },
-        coords = vec3(138.5408, -998.8748, 28.8485)
+        coords = vec3(447.8925, -973.2505, 30.6896)
     },
     {
         id = 'pillbox',
-        label = 'Pillbox Hospital',
-        description = 'Hospital located near the legion square',
-        theme = 'red',
+        label = 'PillBox Hospital',
+        description = 'Hospital located nearthe legion square',
         job = 'ambulance',
-        coords = vec3(145.3994, -1000.9869, 29.2590),
-        otherjobs = false
+        joblabel = 'EMT',
+        theme = 'red',
+        otherjobs = {
+            {
+                job = 'police',
+                label = 'LSPD'
+            }
+        },
+        coords = vec3(243.5401, -1370.1699, 39.5343)
     }
 }
-
-
 Config.themes = {
     ['blue'] = {
         background = '#08121f',

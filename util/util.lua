@@ -10,3 +10,10 @@ end
 Nuicontrol = function (state)
     SetNuiFocus(state, state)
 end
+
+Notify = function (msg,type)
+    lib.notify({
+        description = msg,
+        type = type,
+    })
+end

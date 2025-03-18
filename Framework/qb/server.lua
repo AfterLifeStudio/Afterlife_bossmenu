@@ -50,7 +50,11 @@ if Config.framework == 'qb' then
         return true
     end)
 
-
+    lib.callback.register('Server:FirePlayer', function(source, data)
+        local Employee = QBCore.Functions.GetPlayerByCitizenId(data.id) or QBCore.Functions.GetOfflinePlayerByCitizenId(data.id)
+        Employee.Functions.SetJob('unemployed', 0)
+        return true
+    end)
 
     lib.callback.register('Server:HirePlayer', function(source, data)
         local Employee = QBCore.Functions.GetPlayerByCitizenId(data.id) or QBCore.Functions.GetOfflinePlayerByCitizenId(data.id)
@@ -117,9 +121,8 @@ if Config.framework == 'qb' then
     -- end)
 
 
-    AddEventHandler('QBCore:Server:OnPlayerUnload', function()
-        local player = QBCore.Functions.GetPlayer(source)
-        CheckOut(player.PlayerData.source, player.PlayerData.citizenid, player.PlayerData.job.name)
+    AddEventHandler('QBCore:Server:OnPlayerUnload', function(source)
+        PlayerLeave(source)
     end)
 
 
