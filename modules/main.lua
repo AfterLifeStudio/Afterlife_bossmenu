@@ -15,7 +15,7 @@ end
 
 
 RegisterNUICallback('GetDashboardData', function(data, cb)
-    local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId()), 5, true)
+    local players = lib.getNearbyPlayers(GetEntityCoords(PlayerPedId()), 5, false)
     local playersid = {}
     local location = currentlocation
 

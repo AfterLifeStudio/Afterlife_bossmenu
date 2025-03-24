@@ -299,7 +299,7 @@ const Employees = (jdata) => {
 
             <div className="grademenu-options">
               <div className="grade-option">
-                <div>{activtystate.checkin}</div>
+                <div>{activtystate.checkin ? activtystate.checkin : 'No Data'}</div>
                 <div className="logs-icon">
                   <div className="logs-hover">Check In</div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -308,7 +308,7 @@ const Employees = (jdata) => {
                 </div>
               </div>
               <div className="grade-option">
-                <div>{activtystate.checkout}</div>
+                <div>{activtystate.checkout ? activtystate.checkout : 'No Data'}</div>
                 <div className="logs-icon">
                   <div className="logs-hover">Check Out</div>
                   <svg
@@ -321,7 +321,7 @@ const Employees = (jdata) => {
                 </div>
               </div>
               <div className="grade-option">
-                <div>{activtystate.playtime}</div>
+                <div>{activtystate.playtime ? activtystate.playtime : 'No Data'}</div>
                 <div className="logs-icon">
                   <div className="logs-hover">Playtime</div>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

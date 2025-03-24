@@ -3,11 +3,12 @@
 OnlineEmployees = {}
 
 CreateThread(function()
-    pcall(function()
         for i = 1, #Config.locations do
+            local ammount = MySQL.prepare.await('SELECT account FROM jobs_account WHERE job = ?', { Config.locations[i].job })
+            if not (ammount) then
             MySQL.insert.await('INSERT INTO `jobs_account` (job, account) VALUES (?, ?)', { Config.locations[i].job, 0 })
+            end
         end
-    end)
 end)
 
 
@@ -46,12 +47,23 @@ end)
 lib.callback.register('GetPlayerActivity', function(source, data)
 
     local activity = MySQL.prepare.await('SELECT lastcheckin, lastcheckOut, playtime FROM jobs_activity WHERE job = ? AND id = ?', { data.job, data.id })
+    local data = {}
 
-    local data = {
-        playtime = activity.playtime..' hours',
-        checkin = activity.lastcheckin,
-        checkout = activity.lastcheckOut
-    }
+    if activity then
+        data = {
+            playtime = activity.playtime..' hours',
+            checkin = activity.lastcheckin,
+            checkout = activity.lastcheckOut
+        }
+    else
+        data = {
+            playtime = 'No Data',
+            checkin = 'No Data',
+            checkout = 'No Data',
+        }
+    end
+
+ 
 
     return data
 end)
