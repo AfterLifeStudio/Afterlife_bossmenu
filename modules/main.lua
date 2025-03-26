@@ -69,29 +69,36 @@ CreateThread(function()
         local locations = Config.locations
         local playerjob = GetPlayerJob()
         local isallowed = IsPlayerBoss()
-
+   
         if isallowed then
         for i = 1, #locations do
             local data = locations[i]
 
             if data.job == playerjob then
                 local distance = #(vec3(data.coords.x, data.coords.y, data.coords.z) - pedcoords)
-
+                
                 if distance < 20 then
                     sleep = 0
+                                      
                     DrawMarker(1, data.coords.x, data.coords.y, data.coords.z, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0,
                         1.0, 200, 20, 20, 50, false, true, 2, false, nil, nil, false)
-                    if IsControlJustReleased(0, 38) and distance < 1 then
-                        LocationInteract(data)
-                        inzone = true
-                    end
+                        if distance < 1 then
+                            inzone = true
+                            if IsControlJustReleased(0, 38) then
+                                LocationInteract(data)
+                            end
+                        end
+
                 end
+                print(inzone,alreadyinzone)
 
                 if inzone and not alreadyinzone then
+                    lib.showTextUI(Config.Lang.bossmenu)
                     alreadyinzone = true
                 end
 
                 if not inzone and alreadyinzone then
+                    lib.hideTextUI()
                     alreadyinzone = false
                 end
             end

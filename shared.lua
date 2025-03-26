@@ -32,21 +32,6 @@ Config.locations = {
         coords = vec3(447.8925, -973.2505, 30.6896)
     },
     {
-        id = 'mechanic',
-        label = 'PillBox Hospital',
-        description = 'Hospital located nearthe legion square',
-        job = 'mechanic',
-        joblabel = 'Mechanic',
-        theme = 'red',
-        otherjobs = {
-            {
-                job = 'police',
-                label = 'LSPD'
-            }
-        },
-        coords = vec3(243.5401, -1370.1699, 39.5343)
-    },
-    {
         id = 'pillbox',
         label = 'PillBox Hospital',
         description = 'Hospital located nearthe legion square',
@@ -84,5 +69,5 @@ Config.themes = {
 }
 
 Config.Lang = {
-    bossmenu = 'Open Boss Menu'
+    bossmenu = '[E] Boss Menu'
 }
