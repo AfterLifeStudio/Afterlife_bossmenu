@@ -41,11 +41,14 @@ if Config.framework == 'qbx' then
     end)
 
     lib.callback.register('Server:SetPlayerJob', function(source, data)
-        exports.qbx_core:AddPlayerToJob(data.id, data.job, data.grade)
-        exports.qbx_core:SetPlayerPrimaryJob(data.id, data.job)
+        local playergrade = exports.qbx_core:GetPlayer(source).PlayerData.job.grade.level
+        print(playergrade)
+        if playergrade >= data.grade then
+            exports.qbx_core:AddPlayerToJob(data.id, data.job, data.grade)
+            exports.qbx_core:SetPlayerPrimaryJob(data.id, data.job)
+        end
         return true
     end)
-
     lib.callback.register('Server:FirePlayer', function(source, data)
         exports.qbx_core:RemovePlayerFromJob(data.id, data.job)
         return true

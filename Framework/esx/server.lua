@@ -72,21 +72,23 @@ if Config.framework == 'esx' then
 
         return { players = options, grades = gradesoption }
     end)
-
     lib.callback.register('Server:SetPlayerJob', function(source, data)
-        local number = string.find(data.id, ':')
-        local identifier = data.id:sub(number + 1)
+        local grade = ESX.GetPlayerFromId(source).job.grade
 
-        local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
+        if grade >= data.grade then
+            local number = string.find(data.id, ':')
+            local identifier = data.id:sub(number + 1)
 
-        if xPlayer then
-            xPlayer.setJob(data.job, data.grade)
+            local xPlayer = ESX.GetPlayerFromIdentifier(identifier)
+
+            if xPlayer then
+                xPlayer.setJob(data.job, data.grade)
+            end
+            local affectedRows = MySQL.update.await('UPDATE users SET job = ?, job_grade = ? WHERE identifier = ?',
+                { data.job, data.grade, data.id })
         end
-        local affectedRows = MySQL.update.await('UPDATE users SET job = ?, job_grade = ? WHERE identifier = ?',
-            { data.job, data.grade, data.id })
         return true
     end)
-
     lib.callback.register('Server:FirePlayer', function(source, data)
         local number = string.find(data.id, ':')
         local identifier = data.id:sub(number + 1)

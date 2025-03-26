@@ -25,4 +25,13 @@ if Config.framework == 'qb' then
         return job
     end
 
+    IsPlayerBoss = function()
+        local player = QBCore.Functions.GetPlayerData()
+        local isboss = false
+        pcall(function()
+            isboss = player.job.isboss
+        end)
+        return isboss
+    end
+
 end

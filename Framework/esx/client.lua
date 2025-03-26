@@ -22,7 +22,16 @@ if Config.framework == 'esx' then
         return job
     end
 
-
+    IsPlayerBoss = function()
+        local player = ESX.PlayerData
+        local isboss = false
+        pcall(function()
+            if player.job.grade_name == 'boss' then
+                isboss = true
+            end
+        end)
+        return isboss
+    end
 
 end
 

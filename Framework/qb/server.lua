@@ -45,8 +45,12 @@ if Config.framework == 'qb' then
     end)
 
     lib.callback.register('Server:SetPlayerJob', function(source, data)
-        local Employee = QBCore.Functions.GetPlayerByCitizenId(data.id) or QBCore.Functions.GetOfflinePlayerByCitizenId(data.id)
-        Employee.Functions.SetJob(data.job, data.grade)
+        local playergrade = QBCore.Functions.GetPlayer(source).PlayerData.job.grade.level
+        if playergrade >= data.grade then
+            local Employee = QBCore.Functions.GetPlayerByCitizenId(data.id) or
+            QBCore.Functions.GetOfflinePlayerByCitizenId(data.id)
+            Employee.Functions.SetJob(data.job, data.grade)
+        end
         return true
     end)
 

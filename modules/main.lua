@@ -68,7 +68,9 @@ CreateThread(function()
         local inzone = false
         local locations = Config.locations
         local playerjob = GetPlayerJob()
+        local isallowed = IsPlayerBoss()
 
+        if isallowed then
         for i = 1, #locations do
             local data = locations[i]
 
@@ -95,6 +97,7 @@ CreateThread(function()
             end
 
         end
+    end
 
         Wait(sleep)
     end

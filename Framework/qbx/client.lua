@@ -23,4 +23,13 @@ if Config.framework == 'qbx' then
         return job
     end
 
+    IsPlayerBoss = function()
+        local player = QBX.PlayerData
+        local isboss = false
+        pcall(function()
+            isboss = player.job.isboss
+        end)
+        return isboss
+    end
+
 end
