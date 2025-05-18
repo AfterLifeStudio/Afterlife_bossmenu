@@ -80,7 +80,7 @@ Checkin = function (source,id,job)
     if response > 0 then
         return
     end
-    MySQL.insert.await('INSERT INTO `jobs_activity` (id, job, playtime, lastcheckin, lastcheckout) VALUES (?, ?, ?, ?, ?)',{id, job, 0, os.date('%Y-%m-%d %H:%M:%S'), ''})
+    MySQL.insert.await('INSERT INTO `jobs_activity` (id, job, playtime, lastcheckin, lastcheckout) VALUES (?, ?, ?, ?, ?)',{id, job, 0, os.date('%Y-%m-%d %H:%M:%S'), os.date('%Y-%m-%d %H:%M:%S')})
 end
 
 CheckOut = function (source, id, job)
