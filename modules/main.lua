@@ -90,7 +90,7 @@ CreateThread(function()
                         end
 
                 end
-                print(inzone,alreadyinzone)
+
 
                 if inzone and not alreadyinzone then
                     lib.showTextUI(Config.Lang.bossmenu)

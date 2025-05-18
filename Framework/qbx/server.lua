@@ -110,7 +110,6 @@ if Config.framework == 'qbx' then
         local player = exports.qbx_core:GetPlayer(source)
         -- if player == nil then return end
         -- if player.PlayerData.job.onduty then
-        print('aa')
             Checkin(player.PlayerData.source, player.PlayerData.citizenid, job.name)
         -- end
     end)

@@ -51,7 +51,7 @@ lib.callback.register('GetPlayerActivity', function(source, data)
 
     if activity then
         data = {
-            playtime = activity.playtime..' hours',
+            playtime = math.floor(activity.playtime / 60)..' hours',
             checkin = activity.lastcheckin,
             checkout = activity.lastcheckOut
         }
@@ -80,7 +80,7 @@ Checkin = function (source,id,job)
     if response > 0 then
         return
     end
-    MySQL.insert.await('INSERT INTO `jobs_activity` (id, job, playtime, lastcheckin) VALUES (?, ?, ?, ?)',{id, job, 0, os.date('%Y-%m-%d %H:%M:%S')})
+    MySQL.insert.await('INSERT INTO `jobs_activity` (id, job, playtime, lastcheckin, lastcheckout) VALUES (?, ?, ?, ?, ?)',{id, job, 0, os.date('%Y-%m-%d %H:%M:%S'), ''})
 end
 
 CheckOut = function (source, id, job)
@@ -107,6 +107,6 @@ CreateThread( function ()
         for k,v in pairs(OnlineEmployees) do
             MySQL.update.await('UPDATE `jobs_activity` SET playtime = (playtime + 1) WHERE id = ? AND job = ?', {k, v.job})    
         end
-        Wait(1000 * 5)
+        Wait(1000 * 60)
     end
 end)
